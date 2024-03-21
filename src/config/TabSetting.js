@@ -1,4 +1,4 @@
-import { swatch, fileIcon, ai, logoShirt, stylishShirt } from "../assets";
+import { swatch, dimension, fileIcon, ai, logoShirt, stylishShirt } from "../assets";
 
 const EditorTabs = [
     {
@@ -8,6 +8,10 @@ const EditorTabs = [
     {
         name: "filepicker",
         icon: fileIcon
+    },
+    {
+        name: "dimensionreset",
+        icon: dimension
     },
     {
         name: "aipicker",
