@@ -17,7 +17,7 @@ const Designer = () => {
   const [generateImg, setGenerateImg] = useState('')
   const [activeEditorTab, setActiveEditorTab] = useState('')
   const [activeFilterTab, setActiveFilterTab] = useState({
-    logoShirt: true,
+    logoShirt: false,
     stylishShirt: false
   })
 
@@ -110,7 +110,7 @@ const Designer = () => {
               type="filled"
               title="Image Editor"
               handleClick={() => state.intro = false}
-              customStyles={styles.backButtonContainer__switchScreenButton}
+              customStyles={styles.customButtonContainer__switchScreenButton}
             />
           </motion.div>
 

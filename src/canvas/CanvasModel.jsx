@@ -1,18 +1,15 @@
 import { Canvas } from '@react-three/fiber';
-import { Environment, Center, Stage, PresentationControls } from '@react-three/drei';
+import { Environment, PresentationControls } from '@react-three/drei';
 
 import Shirt from './Shirt';
 import styles from './Canva.module.scss';
-import state from '../store';
-import { useSnapshot } from 'valtio';
 
 const CanvasModel = () => {
-    const snap = useSnapshot(state);
 
     return (
         <Canvas
             shadows
-            camera={{ position: snap.position, fov: 65}}
+            camera={{ position: [0, 0, 5], fov: 65}}
             gl={{ preserveDrawingBuffer: true }}
             className={styles.canvaContainer}
         >
