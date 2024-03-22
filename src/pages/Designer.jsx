@@ -4,7 +4,7 @@ import { useSnapshot } from "valtio";
 
 import { EditorTabs, FilterTabs, DecalTypes } from "../config/TabSetting"
 import { download } from "../assets"
-import { downloadCanvasToImage, reader } from "../utils/DesignerUtils"
+import { downloadCanvasToImage, reader, urlToBase64 } from "../utils/DesignerUtils"
 import { fadeAnimation, slideAnimation } from "../config/MotionSetting";
 import { AIPicker, ColorPicker, FilePicker, CustomButton, Tab } from "../components";
 import state from "../store"
@@ -28,7 +28,9 @@ const Designer = () => {
       case "filepicker":
         return <FilePicker file={file} setFile={setFile} readFile={readFile} />
       case "aipicker":
-        return <AIPicker />
+        return <AIPicker prompt={prompt} setPrompt={setPrompt} generatingImg={generateImg} handleSubmit={handleGenerateImage} />
+      case "download":
+        downloadCanvasToImage();
       default:
         return null
     }
@@ -74,6 +76,39 @@ const Designer = () => {
         handleDecals(type, result);
         setActiveEditorTab("");
       })
+  }
+
+  const handleGenerateImage = async (type) => {
+    alert("This feature is disabled for now. Please try again later.")
+
+    //cors problem in openai server side not backend server side, dont blame to backend server. thanks
+
+    // if(!prompt) return alert("Please enter a prompt");
+
+    // try {
+    //   setGenerateImg(true);
+
+    //   const response = await fetch('https://node-js-ai-api.vercel.app/ai/image-generator', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify({
+    //       prompt,
+    //     })
+    //   })
+
+    //   const data = await response.json();
+    //   const result = urlToBase64(data.image.data[0].url, (base64) => base64);
+    // 
+      
+    //   // handleDecals(type, `data:image/png;base64,${result}`)
+    // } catch (error) {
+    //   alert(error)
+    // } finally {
+    //   setGenerateImg(false);
+    //   setActiveEditorTab("");
+    // }
   }
 
   return (

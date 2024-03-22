@@ -5,6 +5,7 @@ const downloadCanvasToImage = () => {
 
     link.href = dataURL;
     link.download = "canvas.png";
+    console.log(link);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -15,22 +16,17 @@ const reader = (file) =>
         const fileReader = new FileReader();
         fileReader.onload = () => resolve(fileReader.result);
         fileReader.readAsDataURL(file);
-    });
+});
 
-const getContrastingColor = (color) => {
-    // Remove the '#' character if it exists
-    const hex = color.replace("#", "");
+const urlToBase64 = (url, callback) => {
+    fetch(url)
+      .then(response => response.blob())
+      .then(blob => new FileReader())
+      .then(reader => {
+        reader.readAsDataURL(blob);
+        reader.onloadend = () => callback(reader.result);
+      })
+      .catch(error => console.error(error));
+}
 
-    // Convert the hex string to RGB values
-    const r = parseInt(hex.substring(0, 2), 16);
-    const g = parseInt(hex.substring(2, 4), 16);
-    const b = parseInt(hex.substring(4, 6), 16);
-
-    // Calculate the brightness of the color
-    const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-
-    // Return black or white depending on the brightness
-    return brightness > 128 ? "black" : "white";
-};
-
-export { downloadCanvasToImage, reader, getContrastingColor };
+export { downloadCanvasToImage, reader, urlToBase64 };
